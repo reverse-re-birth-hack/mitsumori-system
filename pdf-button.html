@@ -1,0 +1,44 @@
+<!-- 新しいPDF出力ボタンのコード -->
+<button type="button" id="pdf-download-btn" class="btn btn-danger">PDFで出力</button>
+
+<script>
+// PDF出力ボタンのイベント
+$(document).ready(function() {
+  $('#pdf-download-btn').on('click', function() {
+    // フォームデータ収集
+    var formData = {
+      customerName: $('#customer-name').val() || $('#customerName').val(),
+      companyName: $('#company-name').val() || $('#companyName').val(),
+      email: $('#email').val(),
+      phone: $('#phone').val() || $('#phoneNumber').val(),
+      siteUrl: $('#site-url').val() || $('#siteUrl').val(),
+      wpVersion: $('#wp-version').val() || $('#wpVersion').val(),
+      phpVersion: $('#php-version').val() || $('#phpVersion').val(),
+      siteSize: $('#site-size').val() || $('#siteSize').val(),
+      // 料金情報
+      basicPrice: $('#basic-price').text() || $('#basicPrice').text() || 12000,
+      subtotal: $('#subtotal').text() || 0,
+      tax: $('#tax-amount').text() || $('#taxAmount').text() || 0,
+      grandTotal: $('#grand-total').text() || $('#grandTotal').text() || 0,
+      outputMode: 'download'
+    };
+    
+    // Ajax通信でPDF生成
+    $.ajax({
+      url: 'pdf-generate.php',
+      type: 'POST',
+      data: JSON.stringify(formData),
+      contentType: 'application/json',
+      success: function(response) {
+        if (!response.success) {
+          alert('PDF生成に失敗しました: ' + response.message);
+        }
+        // 成功時はサーバー側で処理
+      },
+      error: function() {
+        alert('通信エラーが発生しました');
+      }
+    });
+  });
+});
+</script>

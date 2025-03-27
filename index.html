@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>WordPressサーバー移転・ドメイン移管サービス 見積りフォーム</title>
+    <link href="css/style.css?v=1.1" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>WordPressサーバー移転・ドメイン移管サービス</h1>
+            <h2>見積りフォーム</h2>
+        </div>
+    </header>
+
+    <form id="estimate-form">
+        <!-- 顧客情報セクション -->
+        <section id="customer-info" class="form-section">
+            <h2>お客様情報</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customer_name">お名前 <span class="required">*</span></label>
+                    <input type="text" id="customer_name" name="customer_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company_name">会社名</label>
+                    <input type="text" id="company_name" name="company_name">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">メールアドレス <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">電話番号 <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <!-- チェックボックスとラベルを完全に削除しました -->
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="date_specification" id="date_specification">
+                        日時指定あり (+¥10,000)
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- 基本情報セクション -->
+        <section id="basic-info" class="form-section">
+            <h2>WordPress サイト基本情報</h2>
+            <div class="wp-info-note">
+                <p>WordPress移転に必要な情報をご入力ください。この情報は移転作業の基本となります。</p>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="current_url">現在のサイトURL <span class="required">*</span></label>
+                    <input type="url" id="current_url" name="current_url" placeholder="例: https://example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="target_url">移転先サイトURL （決まっている場合）</label>
+                    <input type="url" id="target_url" name="target_url" placeholder="例: https://new-example.com">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="wp_admin_url">WordPress管理画面URL <span class="required">*</span></label>
+                    <input type="url" id="wp_admin_url" name="wp_admin_url" placeholder="例: https://example.com/wp-admin" required>
+                </div>
+                <div class="form-group">
+                    <label for="wp_login_id">WordPress ログインID <span class="required">*</span></label>
+                    <input type="text" id="wp_login_id" name="wp_login_id" placeholder="管理者権限を持つアカウント" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="wp_login_password">WordPress ログインパスワード <span class="required">*</span></label>
+                    <input type="password" id="wp_login_password" name="wp_login_password" placeholder="セキュアな通信で保管されます" required>
+                    <p class="help-text">※移転作業のために必要です。情報は安全に管理いたします。</p>
+                </div>
+                <div class="form-group">
+                    <label for="wp_version">WordPressのバージョン</label>
+                    <input type="text" id="wp_version" name="wp_version" placeholder="例: 6.4.3">
+                    <p class="help-text">※わからない場合は空欄で構いません</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="php_version">PHPのバージョン</label>
+                    <input type="text" id="php_version" name="php_version" placeholder="例: 8.2">
+                    <p class="help-text">※わからない場合は空欄で構いません</p>
+                </div>
+                <div class="form-group">
+                    <label for="site_size">サイトの容量 (GB)</label>
+                    <input type="number" id="site_size" name="site_size" min="0" step="0.1" value="0" placeholder="例: 1.5">
+                    <p class="help-text" id="site-size-help">サイト容量に応じた追加料金が自動計算されます</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" id="site-size-price-container">
+                    <div class="site-size-price-info">
+                        <p id="site-size-price-text">サイト容量追加料金: ¥0</p>
+                        <div id="site-size-price-details" class="hidden">
+                            <p>・2GB未満：追加料金なし</p>
+                            <p>・2GB以上10GB未満：+¥8,000</p>
+                            <p>・10GB以上20GB未満：+¥13,000</p>
+                            <p>・20GB以上30GB未満：+¥23,000</p>
+                            <p>・30GB以上：+¥30,000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="site_description">サイトの概要・規模</label>
+                    <textarea id="site_description" name="site_description" rows="3" placeholder="WordPressテーマ名、使用しているプラグイン、ページ数など、サイトの特徴をご記入ください"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>希望納期</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="delivery_time" value="1week">
+                            1週間以内
+                        </label>
+                        <label>
+                            <input type="radio" name="delivery_time" value="2weeks">
+                            2週間以内
+                        </label>
+                        <label>
+                            <input type="radio" name="delivery_time" value="1month">
+                            1ヶ月以内
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="desired_date"><span class="required">*</span> <span style="color: red; font-weight: bold;">希望日を記入</span></label>
+                    <input type="date" id="desired_date" name="desired_date" required>
+                </div>
+            </div>
+        </section>
+
+        <!-- 移転元・移転先サーバーログイン情報セクション -->
+        <section id="server-login-info" class="form-section">
+            <h2>サーバーログイン情報</h2>
+            <div class="wp-info-note">
+                <p>サーバー移転に必要なアクセス情報をご入力ください。２段階認証がある場合は解除をお願いします。</p>
+            </div>
+
+            <!-- 移転元のサーバーログイン情報 -->
+            <h3>移転元のサーバーログイン情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source_server_login_url">ログインURL</label>
+                    <input type="url" id="source_server_login_url" name="source_server_login_url" placeholder="例: https://server.example.com/login">
+                </div>
+                <div class="form-group">
+                    <label for="source_server_login_id">アカウントID または メールアドレス</label>
+                    <input type="text" id="source_server_login_id" name="source_server_login_id">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source_server_login_password">パスワード</label>
+                    <input type="password" id="source_server_login_password" name="source_server_login_password">
+                    <p class="help-text">※情報は安全に管理いたします。</p>
+                </div>
+                <div class="form-group">
+                    <label for="source_server_2fa">２段階認証の状態</label>
+                    <select id="source_server_2fa" name="source_server_2fa">
+                        <option value="none">なし</option>
+                        <option value="disabled">あるが解除済み</option>
+                        <option value="enabled">あり（解除が必要）</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 移転先のサーバーログイン情報 -->
+            <h3>移転先のサーバーログイン情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="target_server_login_url">ログインURL</label>
+                    <input type="url" id="target_server_login_url" name="target_server_login_url" placeholder="例: https://server.example.com/login">
+                </div>
+                <div class="form-group">
+                    <label for="target_server_login_id">アカウントID または メールアドレス</label>
+                    <input type="text" id="target_server_login_id" name="target_server_login_id">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="target_server_login_password">パスワード</label>
+                    <input type="password" id="target_server_login_password" name="target_server_login_password">
+                    <p class="help-text">※情報は安全に管理いたします。</p>
+                </div>
+                <div class="form-group">
+                    <label for="target_server_2fa">２段階認証の状態</label>
+                    <select id="target_server_2fa" name="target_server_2fa">
+                        <option value="none">なし</option>
+                        <option value="disabled">あるが解除済み</option>
+                        <option value="enabled">あり（解除が必要）</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- ドメイン管理会社のログイン情報セクション -->
+        <section id="domain-login-info" class="form-section">
+            <h2>ドメイン管理情報</h2>
+            <div class="wp-info-note">
+                <p>ドメイン移管に必要な情報をご入力ください。２段階認証がある場合は解除をお願いします。</p>
+            </div>
+
+            <!-- 移管前のドメイン管理会社情報 -->
+            <h3>移管前のドメイン管理会社情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source_domain_login_url">ログインURL</label>
+                    <input type="url" id="source_domain_login_url" name="source_domain_login_url" placeholder="例: https://domain.example.com/login">
+                </div>
+                <div class="form-group">
+                    <label for="source_domain_login_id">ID</label>
+                    <input type="text" id="source_domain_login_id" name="source_domain_login_id">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source_domain_login_password">パスワード</label>
+                    <input type="password" id="source_domain_login_password" name="source_domain_login_password">
+                    <p class="help-text">※情報は安全に管理いたします。</p>
+                </div>
+                <div class="form-group">
+                    <label for="source_domain_2fa">２段階認証の状態</label>
+                    <select id="source_domain_2fa" name="source_domain_2fa">
+                        <option value="none">なし</option>
+                        <option value="disabled">あるが解除済み</option>
+                        <option value="enabled">あり（解除が必要）</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 移管先のドメイン管理会社情報 -->
+            <h3>移管先のドメイン管理会社情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="target_domain_login_url">ログインURL</label>
+                    <input type="url" id="target_domain_login_url" name="target_domain_login_url" placeholder="例: https://domain.example.com/login">
+                </div>
+                <div class="form-group">
+                    <label for="target_domain_login_id">アカウントID または メールアドレス</label>
+                    <input type="text" id="target_domain_login_id" name="target_domain_login_id">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="target_domain_login_password">パスワード</label>
+                    <input type="password" id="target_domain_login_password" name="target_domain_login_password">
+                    <p class="help-text">※情報は安全に管理いたします。</p>
+                </div>
+                <div class="form-group">
+                    <label for="target_domain_2fa">２段階認証の状態</label>
+                    <select id="target_domain_2fa" name="target_domain_2fa">
+                        <option value="none">なし</option>
+                        <option value="disabled">あるが解除済み</option>
+                        <option value="enabled">あり（解除が必要）</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- FTP情報セクション -->
+        <section id="ftp-info" class="form-section">
+            <h2>FTP情報</h2>
+            <div class="wp-info-note">
+                <p>ファイル転送に必要なFTP接続情報をご入力ください。</p>
+            </div>
+
+            <!-- 移転前のFTP情報 -->
+            <h3>移転前のFTP情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source_ftp_host">ホスト</label>
+                    <input type="text" id="source_ftp_host" name="source_ftp_host" placeholder="例: ftp.example.com">
+                </div>
+                <div class="form-group">
+                    <label for="source_ftp_id">ID</label>
+                    <input type="text" id="source_ftp_id" name="source_ftp_id">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="source_ftp_password">パスワード</label>
+                    <input type="password" id="source_ftp_password" name="source_ftp_password">
+                </div>
+                <div class="form-group">
+                    <label for="source_ftp_directory">リモート先のディレクトリ</label>
+                    <input type="text" id="source_ftp_directory" name="source_ftp_directory" placeholder="例）/abc.com/public_html">
+                </div>
+            </div>
+
+            <!-- 移転先のFTP情報 -->
+            <h3>移転先のFTP情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="target_ftp_host">ホスト</label>
+                    <input type="text" id="target_ftp_host" name="target_ftp_host" placeholder="例: sv1234.xserver.jp">
+                </div>
+                <div class="form-group">
+                    <label for="target_ftp_id">ID</label>
+                    <input type="text" id="target_ftp_id" name="target_ftp_id" placeholder="例: iten@sample.com">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="target_ftp_password">パスワード</label>
+                    <input type="password" id="target_ftp_password" name="target_ftp_password" placeholder="例: password">
+                </div>
+                <div class="form-group">
+                    <label for="target_ftp_directory">リモート先のディレクトリ</label>
+                    <input type="text" id="target_ftp_directory" name="target_ftp_directory" placeholder="例）/abc.com/public_html">
+                </div>
+            </div>
+        </section>
+
+        <!-- メールソフト設定情報セクション -->
+        <section id="email-software-info" class="form-section">
+            <h2>メールソフト設定情報</h2>
+            <div class="wp-info-note">
+                <p>メール設定が必要ない場合は入力不要です。</p>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email_pop_server">受信メール(POP)サーバー</label>
+                    <input type="text" id="email_pop_server" name="email_pop_server" placeholder="例: sv334.xserver.jp">
+                </div>
+                <div class="form-group">
+                    <label for="email_smtp_server">送信メール(SMTP)サーバー</label>
+                    <input type="text" id="email_smtp_server" name="email_smtp_server" placeholder="例: sv334.xserver.jp">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email_username">ユーザー名(アカウント名)</label>
+                    <input type="text" id="email_username" name="email_username" placeholder="例: abcdef@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="email_password">パスワード</label>
+                    <input type="password" id="email_password" name="email_password" placeholder="例: password">
+                </div>
+            </div>
+        </section>
+
+        <!-- サーバー情報セクション (見出しを削除) -->
+        <section id="server-info" class="form-section">
+            <p class="section-subtitle">ワードプレス移転に伴うオプション</p>
+            <div class="form-row checkbox-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="wp_installation" id="wp_installation">
+                        ワードプレスを新しいサーバーに設置 (+¥3,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="plugin_migration" id="plugin_migration">
+                        プラグインの移行・設定 (+¥5,000)
+                    </label>
+                </div>
+            </div>
+            <div class="form-row checkbox-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="php_update" id="php_update">
+                        PHPのバージョンアップ (+¥6,000)
+                    </label>
+                    <div class="service-description">
+                        <p class="service-title">PHP (Hypertext Preprocessor)</p>
+                        <p class="service-role"><strong>役割:</strong> PHPバージョンアップは、サーバー上で動作するPHPのバージョンを最新または推奨バージョンにアップデートするサービスです。</p>
+                        <div class="service-benefits">
+                            <strong>メリット:</strong>
+                            <ul class="benefits-list">
+                                <li>セキュリティの強化: 古いPHPバージョンはセキュリティホールが放置され、脆弱性が存在します。最新版では重要なセキュリティ修正が適用されています。</li>
+                                <li>パフォーマンスの向上: 新しいPHPバージョンは処理速度が大幅に改善されています。PHP 7.4や8.xへのアップグレードでウェブサイトの読み込み速度が2〜3倍速くなることも。</li>
+                                <li>新機能の利用: 最新のPHP機能やライブラリにアクセスでき、より効率的な開発が可能になります。</li>
+                                <li>互換性の維持: 最新のWordPressやプラグインは新しいPHPバージョンに最適化されているため、適切な動作のために必要です。</li>
+                                <li>サポート期間の延長: 古いPHPバージョンはサポート終了後、脆弱性対応や不具合修正が行われなくなります。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="wp_update" id="wp_update">
+                        ワードプレスのバージョンアップ (+¥6,000)
+                    </label>
+                    <div class="service-description">
+                        <p class="service-title">WordPress</p>
+                        <p class="service-role"><strong>役割:</strong> WordPressバージョンアップは、WordPressのコア機能を最新バージョンに更新するサービスです。</p>
+                        <div class="service-benefits">
+                            <strong>メリット:</strong>
+                            <ul class="benefits-list">
+                                <li>セキュリティ強化: 定期的なアップデートにより、発見された脆弱性が修正され、サイトの安全性が高まります。</li>
+                                <li>新機能の追加: 最新バージョンでは編集機能の改善やブロックエディタの強化など、使いやすさが向上します。</li>
+                                <li>パフォーマンス改善: コア機能の最適化により、サイト表示速度と運用効率が向上します。</li>
+                                <li>プラグイン・テーマの互換性: 最新のプラグインやテーマは新しいWordPressバージョン向けに開発されるため、機能を最大限に活用できます。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="multisite" id="multisite">
+                        マルチサイト対応 (+¥4,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ssh_migration" id="ssh_migration">
+                        SSHでの移行が必要 (+¥34,000)
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="test_server" id="test_server">
+                        テストサーバー構築・検証 (+¥10,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="info_support_server" id="info_support_server">
+                        情報開示がない場合のサポート (+¥10,000)
+                    </label>
+                    <p class="help-text">※DNS設定や何も情報を明かせない場合、こちらで入れないのでコミュニケーションロスが発生する確率があがります。</p>
+                </div>
+            </div>
+
+            <p class="section-subtitle">ワードプレスのドメインで運営するメールの運用についてのオプション</p>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="spf_settings" id="spf_settings" class="option-checkbox">
+                    SPF設定
+                </label>
+                <div class="price">¥3,000</div>
+                <div class="option-details">
+                    <p class="option-title">SPF (Sender Policy Framework)</p>
+                    <p class="option-description"><strong>役割:</strong> SPFは、メールが正規のサーバーから送信されたかどうかを確認します。</p>
+                    <p class="option-description"><strong>仕組み:</strong> ドメインのDNSレコードに、メールを送信できるサーバーのリストを登録します。受信側は、そのリストと照合してメールの正当性を確認します。</p>
+                    <p class="option-note">※SPF、DKIM、DMARCを基本３つ入れないとGmailにメールが届かない可能性が高くなります。</p>
+                    <p class="option-description"><strong>メリット:</strong></p>
+                    <ul class="option-benefits">
+                        <li>スパムや偽装メールを防ぐ</li>
+                        <li>メールの信頼性が向上し、受信者が安心してメールを開ける</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="dkim_settings" id="dkim_settings" class="option-checkbox">
+                    DKIM設定
+                </label>
+                <div class="price">¥3,000</div>
+                <div class="option-details">
+                    <p class="option-title">DKIM (DomainKeys Identified Mail)</p>
+                    <p class="option-description"><strong>役割:</strong> DKIMは、メールが改ざんされていないかどうかを確認します。</p>
+                    <p class="option-description"><strong>仕組み:</strong> 送信側がメールにデジタル署名を付け、受信側はその署名を検証してメールの整合性を確認します。</p>
+                    <p class="option-note">※SPF、DKIM、DMARCを基本３つ入れないとGmailにメールが届かない可能性が高くなります。</p>
+                    <p class="option-description"><strong>メリット:</strong></p>
+                    <ul class="option-benefits">
+                        <li>メールの改ざんを防ぐ</li>
+                        <li>メールの信頼性がさらに高まり、受信者が安心してメールを開ける</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="dmarc_settings" id="dmarc_settings" class="option-checkbox">
+                    DMARC設定
+                </label>
+                <div class="price">¥3,000</div>
+                <div class="option-details">
+                    <p class="option-title">DMARC (Domain-based Message Authentication, Reporting, and Conformance)</p>
+                    <p class="option-description"><strong>役割:</strong> DMARCは、SPFとDKIMの結果に基づいて、メールの扱い方を指定します。</p>
+                    <p class="option-description"><strong>仕組み:</strong> ドメインのDNSレコードに、SPFやDKIMの認証に失敗したメールの扱い方（拒否や隔離など）を設定します。また、レポートを送信して、メールの認証状況を監視できます。</p>
+                    <p class="option-note">※SPF、DKIM、DMARCを基本３つ入れないとGmailにメールが届かない可能性が高くなります。</p>
+                    <p class="option-description"><strong>メリット:</strong></p>
+                    <ul class="option-benefits">
+                        <li>スパムやフィッシングメールを効果的にブロック</li>
+                        <li>メールの信頼性がさらに向上し、受信者が安心してメールを開ける</li>
+                        <li>レポートを通じて、メールの認証状況を把握できる</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ドメイン情報セクション -->
+        <section id="domain-info" class="form-section">
+            <h2>ドメイン情報</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="domain_transfer" id="domain_transfer">
+                        ドメインの移管 (+¥10,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="domain_dns" id="domain_dns">
+                        ドメイン移管後のDNS設定 (+¥12,000)
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="domain_change" id="domain_change">
+                        ドメイン変更 (+¥4,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="domain_redirect" id="domain_redirect">
+                        旧サイトから新サイトへの転送設定 (+¥5,000)
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ssl_setup" id="ssl_setup">
+                        http→https設定 (+¥5,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ssl_fix" id="ssl_fix">
+                        SSLの設定で不具合が出た場合の修正 (+¥10,000)
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="www_unification" id="www_unification">
+                        wwwあり/なし統一 (+¥3,000)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="dns_settings" id="dns_settings">
+                        移管後のDNS設定 (+¥12,000)
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="domain_details">ドメイン詳細（移管するドメイン名など）</label>
+                    <textarea id="domain_details" name="domain_details" rows="2" placeholder="例: example.com, example.net"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="domain_manager">現在のドメイン管理会社名</label>
+                    <input type="text" id="domain_manager" name="domain_manager" placeholder="例: お名前.com、ムームードメインなど">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="new_domain">新しいドメイン名（ドメイン変更の場合）</label>
+                    <input type="text" id="new_domain" name="new_domain" placeholder="例: example.com">
+                </div>
+            </div>
+        </section>
+
+        <!-- メール設定情報セクション -->
+        <section id="email-info" class="form-section">
+            <h2>メール設定情報</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email_account_count">設定するメールアカウント数</label>
+                    <input type="number" id="email_account_count" name="email_account_count" min="0" max="10" value="0" class="mail-account-input">
+                    <p class="help-text mail-account-help">基本料金 ¥3,000</p>
+                </div>
+                <div class="form-group">
+                    <button type="button" id="add-email-account" class="add-button">+ メールアカウントを追加</button>
+                </div>
+            </div>
+
+            <!-- メールアカウント設定欄 - 動的に生成されます -->
+            <div id="email-accounts-container">
+                <!-- ここにJavaScriptでメールアカウント入力欄が生成されます -->
+            </div>
+        </section>
+
+        <!-- オプションサービスセクション -->
+        <section id="options" class="form-section">
+            <h2>オプションサービス</h2>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="google_analytics" id="google_analytics" class="option-checkbox">
+                    Googleアナリティクス設定
+                </label>
+                <div class="price">¥5,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="google_search_console" id="google_search_console" class="option-checkbox">
+                    Googleサーチコンソール設定
+                </label>
+                <div class="price">¥3,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="recaptcha" id="recaptcha" class="option-checkbox">
+                    reCAPTCHA設定
+                </label>
+                <div class="price">¥3,000</div>
+                <div class="option-details">
+                    <p class="option-title">reCAPTCHA (Google)</p>
+                    <p class="option-description"><strong>役割:</strong> reCAPTCHAは、ウェブサイトのフォームやお問い合わせページを、ボットからの自動スパム攻撃から保護します。</p>
+                    <p class="option-description"><strong>仕組み:</strong> Googleの先進的なリスク分析技術を使用して、人間とボットを識別。サイト訪問者の行動パターンを分析し、不審な活動を検出した場合のみチャレンジを表示します。</p>
+                    <p class="option-note">※適切なスパム対策がなければ、お問い合わせフォームからの大量のスパムメールに悩まされる可能性が高くなります。</p>
+                    <p class="option-description"><strong>メリット:</strong></p>
+                    <ul class="option-benefits">
+                        <li>自動ボットからのスパムフォーム送信を効果的にブロック</li>
+                        <li>問い合わせフォームの信頼性が向上し、本当の顧客だけのメッセージを受信</li>
+                        <li>サーバー負荷の軽減とセキュリティリスクの低減</li>
+                        <li>運営者の時間と労力の大幅な節約</li>
+                    </ul>
+                    <p class="option-description">今すぐ導入で、安全で効率的なサイト運営を実現</p>
+                </div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="sitemap" id="sitemap" class="option-checkbox">
+                    サイトマップ設定
+                </label>
+                <div class="price">¥3,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="ahrefs_analysis" id="ahrefs_analysis" class="option-checkbox">
+                    a hrefs 流入ワード・被リンク分析レポート
+                </label>
+                <div class="price">¥6,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="seo_advice" id="seo_advice" class="option-checkbox">
+                    移転の際のSEO効果引き渡しアドバイス
+                </label>
+                <div class="price">¥40,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="domain_lecture" id="domain_lecture" class="option-checkbox">
+                    ドメイン移管やサーバー移転に関するレクチャー
+                </label>
+                <div class="price">¥30,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="screen_sharing" id="screen_sharing" class="option-checkbox">
+                    画面共有での説明
+                </label>
+                <div class="price">¥30,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="troubleshooting" id="troubleshooting" class="option-checkbox">
+                    不具合の調査作業
+                </label>
+                <div class="price">¥10,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="issue_fixing" id="issue_fixing" class="option-checkbox">
+                    不具合の修正作業
+                </label>
+                <div class="price">¥15,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="backup_storage" id="backup_storage" class="option-checkbox">
+                    バックアップ保管
+                </label>
+                <div class="price">¥5,000</div>
+                <div class="option-details">
+                    <p class="option-title">バックアップ保管サービス</p>
+                    <p class="option-description">お客様の大切なウェブサイトデータを確実にバックアップいたします。ワードプレスで構築されたサイトはもちろん、通常のHTMLサイトも対応可能な包括的なバックアップソリューションをご提供します。</p>
+                    <p class="option-description"><strong>サービス内容:</strong></p>
+                    <ul class="option-benefits">
+                        <li><strong>ワードプレスサイトの完全バックアップ</strong> - データベース、テーマ、プラグイン、設定情報を保存</li>
+												<li><strong>メディアライブラリ（画像・動画など）の完全保存</strong></li>
+												<li><strong>HTMLサイトの完全バックアップ</strong> - すべてのHTMLファイル、CSS、JavaScript</li>
+												<li><strong>画像、動画、PDFなどの関連ファイル</strong></li>
+												<li><strong>安全なデータ保管</strong> - 暗号化されたクラウドストレージでの保管</li>
+												<li><strong>複数バージョンの履歴保存（最大6ヶ月分）</strong></li>
+                    </ul>
+                    <p class="option-description"><strong>バックアップが必要な理由:</strong></p>
+                    <ul class="option-benefits">
+                        <li>サーバー障害やエラーからサイトを保護</li>
+                        <li>誤操作や更新ミスからの復旧手段として</li>
+                        <li>ハッキングやマルウェア感染時の安全策</li>
+                        <li>サイトリニューアル前の保険として</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="php_wp_upgrade_investigation" id="php_wp_upgrade_investigation" class="option-checkbox">
+                    phpバージョンアップ、ワードプレスのバージョンアップ時の不具合調査費用
+                </label>
+                <div class="price">¥10,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="issue_fix" id="issue_fix" class="option-checkbox">
+                    不具合の修正(※内容によって金額は変動)
+                </label>
+                <div class="price">¥20,000</div>
+            </div>
+
+            <div class="option-item">
+                <label>
+                    <input type="checkbox" name="sns_discount" id="sns_discount" class="option-checkbox">
+                    SNS拡散割引 (5%割引)
+                </label>
+                <div class="price">-5%</div>
+            </div>
+        </section>
+
+        <!-- 見積り合計セクション -->
+        <section id="total" class="form-section">
+            <h2>見積り合計</h2>
+            <div class="current-datetime">
+                <p>見積り作成日時: <span id="current-date-time"></span></p>
+            </div>
+            <div class="totals-container">
+                <div class="totals-row">
+                    <div class="totals-label">基本料金:</div>
+                    <div class="totals-value" id="basic-price">¥12,000</div>
+                </div>
+                <div class="totals-row">
+                    <div class="totals-label">サイト容量追加料金:</div>
+                    <div class="totals-value" id="site-size-price">¥0</div>
+                </div>
+                <div class="totals-row">
+                    <div class="totals-label">サーバー移転料金:</div>
+                    <div class="totals-value" id="server-price">¥0</div>
+                </div>
+                <div class="totals-row server-details-container">
+                    <div id="server-details" class="details-list hidden"></div>
+                </div>
+                <div class="totals-row">
+                    <div class="totals-label">ドメイン関連料金:</div>
+                    <div class="totals-value" id="domain-price">¥0</div>
+                </div>
+                <div class="totals-row domain-details-container">
+                    <div id="domain-details" class="details-list hidden"></div>
+                </div>
+                <div class="totals-row">
+                    <div class="totals-label">メール設定料金:</div>
+                    <div class="totals-value" id="email-price">¥0</div>
+                </div>
+                <div class="totals-row email-details-container">
+                    <div id="email-details" class="details-list hidden"></div>
+                </div>
+                <div class="totals-row">
+                    <div class="totals-label">オプションサービス料金:</div>
+                    <div class="totals-value" id="options-price">¥0</div>
+                </div>
+                <div class="totals-row options-details-container">
+                    <div id="options-details" class="details-list hidden"></div>
+                </div>
+                <div class="totals-row" id="discount-row" style="display: none;">
+                    <div class="totals-label">SNS拡散割引 (5%):</div>
+                    <div class="totals-value" id="discount-value">¥0</div>
+                </div>
+                <div class="totals-row subtotal">
+                    <div class="totals-label">小計:</div>
+                    <div class="totals-value" id="subtotal">¥12,000</div>
+                </div>
+                <div class="totals-row">
+                    <div class="totals-label">消費税 (10%):</div>
+                    <div class="totals-value" id="tax">¥1,200</div>
+                </div>
+                <div class="totals-row grand-total">
+                    <div class="totals-label">合計金額:</div>
+                    <div class="totals-value" id="grand-total">¥13,200</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>依頼プラットフォーム</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="platform" value="coconala" checked>
+                            ココナラ（手数料20%）
+                        </label>
+                        <label>
+                            <input type="radio" name="platform" value="lancers">
+                            ランサーズ（手数料20%）
+                        </label>
+                        <label>
+                            <input type="radio" name="platform" value="direct">
+                            直接依頼（手数料なし）
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terms-conditions">
+                <h3>利用規約</h3>
+                <div class="terms-text">
+                    <p>"FTP、phpMyAdminが利用できるレンタルーサーバ　であることが条件です。<br>大容量でも承ります。</p>
+                    <p>※できない場合は、事前にお知らせください。　<br>　可能な範囲でできる場合は対応致します。</p>
+                    <p>また、ワードプレスは管理者権限があるものでお願いします。<br>こちらもできない場合はご相談ください。"</p>
+                    <p>"※ワードプレス以外のphp・perlのプログラムなどが設置されている場合、要相談となります。<br>こちらについては本サービスの対象外となり動作保証は出来かねます。"</p>
+                    <p>"VPSサーバー、専用サーバー（マネージド専用サーバーは除く）、クラウドサーバーなどの契約者自身でサーバー管理が必要な契約サーバーでの設定作業は対象外です。<br>・WordPressと連携した特殊なディレクトリ構造をしている場合はお断りする場合があります。<br>・phpMyAdmin上でインストールに問題があると判断した場合お断りする可能性があります。<br>・キャッシュ系プラグインは一度無効にさせて頂く場合があります。<br>→移転後ご自身で有効化してください。<br>・プラグイン等のトラブルはご対応不可な場合がございます。<br>・動作を見るためにプラグインをオンオフにする場合があります。</p>
+                    <p>・お客様都合（説明を読んでいないなど）による返金（キャンセル）対応はしておりません。<br>サーバー移転の際にPHP・WPなどのバージョンが変わり動作しない場合があります。"</p>
+                    <p>"wordpressなどPHP/MySQLを利用したサイトの場合、<br>サーバー移転で使えなくなる機能・プラグインがあります。<br>サーバー会社やレジストラに問い合わせして聞く場合もあります。</p>
+                    <p>■購入にあたってのお願い■<br>下記の情報を事前にお知らせください。<br>◆移転元サーバーのコントロールパネル情報<br>◆移転元サーバーのFTP情報<br>◆レジストラ管理情報<br>◆移転先のサーバー情報<br>◆移転先のFTP情報<br>◆移転先のワードプレスログイン情報<br>◆テストサイトなどに移行したいデータがある場合、<br>移行するデータのURLの情報を入れてください。</p>
+                    <p>※コントロールパネルの情報を提供頂ければこちらで調べて対応します。<br>"</p>
+                    <p>◆ドメインを変更された場合、GoogleMapなどの外部サービスは別途設定変更が必要になります。外部サービスの設定はお客様にてお願いします。</p>
+                    <p>"■必須事項■</p>
+                    <p>事前に移転する予定のサイトのデータファイル・データベースのバックアップ<br>は必ずお願いします。</p>
+                    <p>Wordpressのバックアップ用プラグインをご使用の場合、必要なバックアップファイルをダウンロードしてから、すべてのバックアップファイルを削除してください。<br>また、移設が完了するまではプラグインを無効にしておいてください。<br>"</p>
+                    <p>"・不満点がありましたら評価前にお聞かせください<br>・移転に伴うテンプレートの修正などは対応外です。<br>・ワードプレスの構造上不可能な対応はできません。"</p>
+                </div>
+                <label class="terms-agreement">
+                    <input type="checkbox" name="agree_terms" id="agree_terms" required>
+                    取引前の重要事項を確認し同意します
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="calculate-button" class="primary-button">見積り計算</button>
+                <button type="button" id="export-excel" class="secondary-button">Excelで出力</button>
+                <button type="submit" id="submit-button" class="primary-button" disabled>見積りを送信</button>
+            </div>
+        </section>
+    </form>
+
+    <!-- 見積り結果を表示するエリア -->
+    <div id="estimate-result-area" class="estimate-result-container" style="display:none;"></div>
+
+
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 WordPressサーバー移転・ドメイン移管サービス. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js?v=1.1"></script>
+</body>
+</html>

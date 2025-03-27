@@ -1,0 +1,21 @@
+Array
+(
+    [customerName] => 
+    [companyName] => 
+    [email] => 
+    [phone] => 
+    [siteUrl] => 
+    [wpVersion] => 
+    [phpVersion] => 
+    [siteSize] => 0
+    [currentServer] => 
+    [newServer] => 
+    [snsDiscount] => no
+    [rawTotal] => 12000
+    [displayTotal] => 13200
+)
+
+--- 計算過程 ---
+処理後のrawTotal: 12000
+税額計算: 1200
+税込合計: 13200
